@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
-<title>Passbook Generator</title>
-
+<title>ICICI Passbook Generator</title>
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-<h2>Passbook Generator</h2>
+<h2>Customer Details</h2>
 
-<input type="text" id="name" placeholder="Customer Name">
+<input id="name" placeholder="Customer Name"><br>
+<input id="acc" placeholder="Account Number"><br>
+<input id="branch" placeholder="Branch"><br>
+<input id="ifsc" placeholder="IFSC Code"><br>
+<input id="balance" placeholder="Balance"><br>
 
-<input type="text" id="account" placeholder="Account Number">
-
-<input type="text" id="ifsc" placeholder="IFSC Code">
-
-<input type="text" id="branch" placeholder="Branch">
-
-<input type="text" id="balance" placeholder="Opening Balance">
-
-<button onclick="createPassbook()">Download Passbook</button>
+<button onclick="generatePDF()">Download Passbook</button>
 
 </div>
-
-<!-- hidden logo -->
-<img id="logo" src="logo.png" style="display:none">
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
