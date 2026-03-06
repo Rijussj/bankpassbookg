@@ -1,6 +1,6 @@
 body{
 font-family: Arial;
-background:#f4f4f4;
+background:#f2f2f2;
 text-align:center;
 }
 
@@ -8,7 +8,7 @@ text-align:center;
 background:white;
 width:350px;
 margin:auto;
-margin-top:100px;
+margin-top:80px;
 padding:30px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
 border-radius:10px;
