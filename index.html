@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Passbook Generator</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Passbook Generator</h2>
+
+<input type="text" id="name" placeholder="Customer Name">
+
+<input type="text" id="account" placeholder="Account Number">
+
+<input type="text" id="ifsc" placeholder="IFSC">
+
+<input type="text" id="branch" placeholder="Branch">
+
+<input type="text" id="balance" placeholder="Opening Balance">
+
+<button onclick="createPassbook()">Download Passbook</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
