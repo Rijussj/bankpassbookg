@@ -3,62 +3,65 @@ function generatePDF(){
 const { jsPDF } = window.jspdf;
 const doc = new jsPDF();
 
-/* input */
-
 let name=document.getElementById("name").value;
-let acc=document.getElementById("acc").value;
-let branch=document.getElementById("branch").value;
-let ifsc=document.getElementById("ifsc").value;
+let account=document.getElementById("account").value;
 let balance=document.getElementById("balance").value;
 
-/* logo */
+/* HEADER COLOR (ICICI ORANGE) */
 
-const logo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABF1BMVEX///8AW3WwKjAAV3IAU2/5nScAVnHX5ekATWoAUW0ATGpDgJQAXHYAZH7q8vR0laP0+foqb4avJSytIzDi7O/5mx8ASGf5lgCtGCCtHiXtiylolKSsIDC90dfK2t8ARWXfsbP89/erAA747O3NeG3Ph4qlv8hOhpiCprOVsr3wkSj6tGK0w8uvx89UhJb927c7dInsy8vhrqnaoqX14t7AVFGrDBi7Qj7w2dnLd3TCXVnPgX2/XGDqw7i1NTfBZWjfmn3/8NvXdD7SjpD/58bcdSrshhG2MCv/9en6pjzHUCaoAAD9s1bcnpX8y5Tz077YbSrkkFe5MiDfbwC3Q0j8z5/DTS68Py/NXS24LBDdfD37um4AOFy9wowhAAAIMUlEQVR4nO2Za3fbxhGGCeJOAhRAgTdRgG4VQcqiTFmJKtWtXSVWLCWp66a+pG3+/+/ozOwuSMpxRZ/DHPbkvM8nYDkA5t2Z2Z2VajUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/zcH5s4uLZ19t2o3fiq+efX142ScO/7i/aV9+C66u+/12u385qNfr7f6fDjbtz7o5el4fkLA/X5wft0liffBy0x6tmb+8GJCwwQVfvxSJl/sbdmm9/PWQVR3uy80x52m9/fXvKE9vvulLYn4rdwfvJIb1w6sNu7U+Xn2jJR3J7b7Irdf7Fxv2a228ulUC63W5vXqhbwfPN+zYurj5blcL7PPtVd3oHfxh066th5uT13Uj6fj8/Plhu/77Unh3//22UXT5ww+y3VeCN+3cWvjxVgtsD673j66OFxX+bdPOrYM3nY+6Bt+dy8D1XOLl3zfs3Dq46b2VELYPj/X2/u1c4fd3m3VuLdx3VD6+ONcDZrcndv+xUdfWw3sVwsuXR2bk/LIK4U9vNunaeri7lyrsH88b0OdVkm7/82aDrq2JN72d3eVj0lGVpNs//bg5x9bFnduhJG2/OKqdH1+rPF1I0u+eKqtJFBNOoh9K8smwSQwnuR7JbTbwCvPafLSlDfQzPv8eW6Pqw/ICTTnOayvSKsk8edxuzvuO+4HL8Ppdf3CouuyXJkl3395rqzPPJmJ1U5S248iA5zix8nns8H3UUmqG0dzAHos/pwHdWnY1BUmXf2bELBiv6G/h2M7wSwTWXPdENsN22xycDkzTvf2ho0OYxbZlWY540RranrVAyKNJygaefDoZR86iQSCjpTyUVrOfB5ZlR/K7w8+G/mr+ThwrHD1uNuem555UOdnf56FzfW6qvz55oq2KkF1xOJX8VNx37CgSz+gyI9mBXE14Nppi4HlR5CmDBj8nYrz57I8dyyt9ppjw/IXT1RymqWysOBkKStKT3WWFpmfbPemYhXQsTkckxY/Ya7sxLnx/KpG1HPJtJFMQ0KeTmG3toMx9P58pA4pyISGcz37StK3AFB8/3Shqq5DQG70vEVh7sqhwIFu+WUh3eu+NleSgPaNYqatYzeKowXXUILeHIiCiMRXBWDlfdNkg2CJTGbYz88aMRMUmFjyBsSrhLJ+enub6hxZFmBMkpyH95NQxiSDhf3zJOXDdhSwd8Fp6dSg1+HqnY3KUAmdycEsCFGkPsuEWU2jh/OmRpGuoo5MoAwpyU2amWXk0DS37TF8XlAsNiW7ejLygEThWU74w8SJn1BrGdhh60TDRk8E5Q8VuRbQEPK7wrkcSddtdb7/jIfnzxfbHnY5btQCnqrKKmm9V5baEr2pztLTiLOGYdNVQ0O2yyInRMLJtWa5qQ8dz4tmMBDuzRBuN4yAIuAZCeSm9n+fXL0PbiVcp3RtW+LM+OqmjIJfh9seTTmfezagcTFu6HtPWw9dMpAw9vzYN9MUDiobUabXrtbhC7YChbcUqpQjHXScccq2TRC/nBZoS3wnL03wiCxY/17DslDIg8qywzB5+5bMKd3Qh9rkMqeve3n7rur2ncyvHrIO29esROlPVyfsmX6SfGKipqTqGms92DuHxehuPZc4opVWQx54o5Fq1YxFP5Wd1M1mTKBGGgWWvumWIQvfnXZWkXIYHl7sfdly3syDQb+h1sLp4gN4uh1SPD5JRk+gyrAY46LMxsXWW0qXT0GmR+QXBAS5EjlnTeCnmGG6R9gntV95s1R1DKXTlbxiqNb361627HEG9FYQZLw96T1C0hKSWe3q7LFQPcPrQoKXG5/VLik01JyNPTUqSD2dxxJ2Qbg2oOMwj9AVeyjlvLW6Nmiv3bQcdUejefqxvqz/gs+bOYgR1GdpU+0pqteFOUsFXOcjTXdhLCvOYf6edQ5XnfMtrRYv7tsr8rBl4XmhFBN2XNUkIW8eWOhmeEc7bGUc4Xn3Tf6Iluju3/5a181XP7bhLR6ZENnlvywTTTH4WSm6eme2SclApZPdER8pT41m8SErwq1fmbGduMptjmFDuOc0pNRI+zWgwlVqtYlWqllaEcq3Y8cpBfNrTCt2eOuse9Hr/Wf5XhV4Hp6YgrUhW6WmgejK/lnmm+jLd5cgc5OqG9sZk9qAMx87CesUp0igmgdkgW7HaEViOrugkUJpoIaPQk6nllKsqrN2bIHb0H2TuHp551ToYcL4on207LZupar95+52KQcg5qIJleWlZprprJSfVNrqwQtFvzighsqxggd6MK1O1psmZJyVRW+jrqE3nxMhSVaBNb6moH+HG7SyG8Fc4My0bhTNSbqvVgDNwWk2BtF2ZFm4ZA5sdUdltzU9OnAvpjKAjJQuksiLR3rCVJDm3fc6WqtVwPsk8P4UjxaJSxVutkSVe3fdIY+f+c78vnpwo8/SBgr136HDAg/HCLumnoTlbUafizMQNfXKqXqkWHlk12dWQl/4hbxrxLO1asTpo8PKp8zqhSbb9SqjKGvvTxuOzvL/v9Z589o+G01+o8WjsmU5zVHpdHmjEw5FqKjI2CPZM1kyHkRh043KipjnxGjTQnTcKW3uBodG1Snl1UnZDJ2x0z4pZt7HXYqOGeWerG3Q5O9Nu8Iv65pjesJd+wVH/f/0XtCWHuMXVOaHb1vItkSyPZJ8YzB/J/Dnzx/zRZDJN1KFBG5kf9fsW/Hj4SQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsGn+C/G+o1XDPV1eAAAAAElFTkSuQmCC";
-
-/* header */
-
-doc.setFillColor(120,0,0);
+doc.setFillColor(243,123,32);
 doc.rect(0,0,210,25,"F");
+
+/* LOGO */
+
+var logo="logo.png";
 
 doc.addImage(logo,"PNG",10,5,30,15);
 
+/* BANK NAME */
+
 doc.setTextColor(255,255,255);
-doc.setFontSize(16);
-doc.text("ICICI BANK PASSBOOK",105,15,null,null,"center");
+doc.setFontSize(18);
+doc.text("ICICI Bank Passbook",105,15,null,null,"center");
+
+/* TEXT RESET */
 
 doc.setTextColor(0,0,0);
+doc.setFontSize(12);
 
-/* details box */
+/* CUSTOMER DETAILS */
 
-doc.rect(10,35,190,40);
+doc.text("Customer Name : "+name,20,40);
+doc.text("Account Number : "+account,20,50);
+doc.text("Current Balance : ₹ "+balance,20,60);
 
-doc.text("Name: "+name,15,45);
-doc.text("Account No: "+acc,15,55);
-doc.text("Branch: "+branch,110,45);
-doc.text("IFSC: "+ifsc,110,55);
-doc.text("Balance: Rs "+balance,15,65);
+/* TABLE HEADER */
 
-/* table header */
+doc.setFillColor(230,230,230);
+doc.rect(10,80,190,10,"F");
 
-doc.rect(10,85,190,10);
+doc.text("Date",15,87);
+doc.text("Description",45,87);
+doc.text("Debit",120,87);
+doc.text("Credit",150,87);
+doc.text("Balance",180,87);
 
-doc.text("Date",15,92);
-doc.text("Description",60,92);
-doc.text("Debit",130,92);
-doc.text("Credit",160,92);
-doc.text("Balance",185,92);
+/* SAMPLE TRANSACTIONS */
 
-/* example rows */
+doc.text("03/04/2026",15,100);
+doc.text("ATM Withdrawal",45,100);
+doc.text("2000",120,100);
+doc.text("-",150,100);
+doc.text(balance,180,100);
 
-doc.rect(10,95,190,10);
-doc.text("01/04/2026",15,102);
-doc.text("Opening Balance",60,102);
-doc.text("-",130,102);
-doc.text(balance,160,102);
-doc.text(balance,185,102);
+doc.text("05/04/2026",15,110);
+doc.text("UPI Credit",45,110);
+doc.text("-",120,110);
+doc.text("5000",150,110);
+doc.text(balance,180,110);
 
-/* save */
+/* DOWNLOAD */
 
-doc.save("passbook.pdf");
+doc.save("ICICI_Passbook.pdf");
 
 }
