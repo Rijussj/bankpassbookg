@@ -1,6 +1,7 @@
-async function generatePDF(){
+function generatePDF(){
 
 const { jsPDF } = window.jspdf;
+
 const doc = new jsPDF();
 
 let name=document.getElementById("name").value;
@@ -9,38 +10,43 @@ let branch=document.getElementById("branch").value;
 let ifsc=document.getElementById("ifsc").value;
 let balance=document.getElementById("balance").value;
 
-let img = new Image();
-img.src="logo.png";
+/* header */
 
-img.onload=function(){
-
-doc.addImage(img,'PNG',15,10,40,15);
-
-doc.setFontSize(16);
+doc.setFontSize(18);
 doc.text("ICICI BANK PASSBOOK",105,20,null,null,"center");
 
-doc.setFontSize(11);
+/* customer details */
 
-doc.text("Name : "+name,15,40);
-doc.text("Account No : "+acc,15,48);
-doc.text("Branch : "+branch,15,56);
-doc.text("IFSC : "+ifsc,15,64);
-doc.text("Balance : ₹ "+balance,15,72);
+doc.setFontSize(12);
 
-doc.line(10,80,200,80);
+doc.text("Name: "+name,20,40);
+doc.text("Account Number: "+acc,20,50);
+doc.text("Branch: "+branch,20,60);
+doc.text("IFSC: "+ifsc,20,70);
+doc.text("Balance: ₹ "+balance,20,80);
 
-doc.text("Date",15,90);
-doc.text("Description",50,90);
-doc.text("Debit",140,90);
-doc.text("Credit",165,90);
+/* line */
 
-doc.line(10,95,200,95);
+doc.line(10,90,200,90);
 
-doc.text("01/01/2026","15","Opening Balance");
-doc.text("₹ "+balance,"165","100");
+/* table header */
+
+doc.text("Date",20,100);
+doc.text("Description",60,100);
+doc.text("Debit",140,100);
+doc.text("Credit",170,100);
+
+doc.line(10,105,200,105);
+
+/* example transaction */
+
+doc.text("01/01/2026",20,115);
+doc.text("Opening Balance",60,115);
+doc.text("-",140,115);
+doc.text(balance,170,115);
+
+/* save pdf */
 
 doc.save("passbook.pdf");
-
-}
 
 }
