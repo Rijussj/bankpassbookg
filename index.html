@@ -32,37 +32,29 @@ margin:10px;
 }
 
 #passbook{
-
 width:700px;
 margin:auto;
 background:white;
 padding:20px;
 border:1px solid #ccc;
-
 }
 
 .topbar{
-
 background:#AE275F;
 color:white;
 padding:15px;
 display:flex;
 align-items:center;
-
 }
 
 .logo{
-
 width:120px;
 margin-right:10px;
-
 }
 
 .info{
-
 text-align:left;
 margin-top:20px;
-
 }
 
 </style>
@@ -113,20 +105,17 @@ margin-top:20px;
 
 function generatePassbook(){
 
-document.getElementById("pname").innerText =
-document.getElementById("name").value;
+let name=document.getElementById("name").value || "";
+let acc=document.getElementById("acc").value || "";
+let branch=document.getElementById("branch").value || "";
+let ifsc=document.getElementById("ifsc").value || "";
+let address=document.getElementById("address").value || "";
 
-document.getElementById("pacc").innerText =
-document.getElementById("acc").value;
-
-document.getElementById("pbranch").innerText =
-document.getElementById("branch").value;
-
-document.getElementById("pifsc").innerText =
-document.getElementById("ifsc").value;
-
-document.getElementById("paddress").innerText =
-document.getElementById("address").value;
+document.getElementById("pname").innerText=name;
+document.getElementById("pacc").innerText=acc;
+document.getElementById("pbranch").innerText=branch;
+document.getElementById("pifsc").innerText=ifsc;
+document.getElementById("paddress").innerText=address;
 
 }
 
