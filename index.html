@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ICICI Passbook</title>
+<title>ICICI Passbook Generator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -9,15 +9,36 @@
 
 body{
 font-family:Arial;
-background:#f5f5f5;
+background:#f2f2f2;
 text-align:center;
+}
+
+.container{
+background:white;
+padding:20px;
+width:400px;
+margin:auto;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:8px;
+}
+
+button{
+padding:12px 25px;
+margin-top:10px;
+cursor:pointer;
 }
 
 .passbook{
 width:700px;
-margin:auto;
-border:1px solid #ccc;
+margin:30px auto;
 background:white;
+border:1px solid #ccc;
 display:none;
 }
 
@@ -35,16 +56,10 @@ margin-right:20px;
 }
 
 .details{
-padding:20px;
-line-height:28px;
 text-align:left;
-}
-
-button{
-margin:20px;
-padding:12px 25px;
-font-size:16px;
-cursor:pointer;
+padding:20px;
+font-size:18px;
+line-height:30px;
 }
 
 </style>
@@ -52,30 +67,55 @@ cursor:pointer;
 
 <body>
 
-<h2>ICICI Bank Passbook Generator</h2>
+<h2>ICICI Passbook Generator</h2>
+
+<div class="container">
+
+<input id="name" placeholder="Customer Name">
+
+<input id="account" placeholder="Account Number">
+
+<input id="branch" placeholder="Branch">
+
+<input id="ifsc" placeholder="IFSC Code">
+
+<input id="address" placeholder="Address">
+
+<br>
 
 <button onclick="generatePassbook()">Generate Passbook</button>
+
+</div>
+
 
 <div class="passbook" id="passbook">
 
 <div class="header">
+
 <img id="logo">
+
 <h2>ICICI Bank Passbook</h2>
+
 </div>
 
 <div class="details">
 
-<p>Customer Name: Abdur Salam</p>
-<p>Account Number: 6000818381</p>
-<p>Branch: Main Branch</p>
-<p>IFSC Code: ICIC0001234</p>
-<p>Address: Duliagaon, India</p>
+<p id="pname"></p>
+
+<p id="paccount"></p>
+
+<p id="pbranch"></p>
+
+<p id="pifsc"></p>
+
+<p id="paddress"></p>
 
 <button onclick="downloadPDF()">Download Passbook</button>
 
 </div>
 
 </div>
+
 
 <script>
 
@@ -84,34 +124,37 @@ const logoBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAA
 document.getElementById("logo").src = logoBase64;
 
 function generatePassbook(){
-document.getElementById("passbook").style.display="block";
+
+let name=document.getElementById("name").value
+let account=document.getElementById("account").value
+let branch=document.getElementById("branch").value
+let ifsc=document.getElementById("ifsc").value
+let address=document.getElementById("address").value
+
+document.getElementById("pname").innerText="Customer Name: "+name
+document.getElementById("paccount").innerText="Account Number: "+account
+document.getElementById("pbranch").innerText="Branch: "+branch
+document.getElementById("pifsc").innerText="IFSC Code: "+ifsc
+document.getElementById("paddress").innerText="Address: "+address
+
+document.getElementById("passbook").style.display="block"
+
 }
 
 function downloadPDF(){
 
-const { jsPDF } = window.jspdf;
+const { jsPDF } = window.jspdf
+const pdf=new jsPDF()
 
-const pdf = new jsPDF();
+pdf.addImage(logoBase64,"PNG",10,10,30,30)
 
-pdf.setFillColor(245,130,32);
-pdf.rect(0,0,210,30,"F");
+pdf.text(document.getElementById("pname").innerText,20,60)
+pdf.text(document.getElementById("paccount").innerText,20,70)
+pdf.text(document.getElementById("pbranch").innerText,20,80)
+pdf.text(document.getElementById("pifsc").innerText,20,90)
+pdf.text(document.getElementById("paddress").innerText,20,100)
 
-pdf.addImage(logoBase64,"PNG",10,5,20,20);
-
-pdf.setTextColor(255,255,255);
-pdf.setFontSize(16);
-pdf.text("ICICI Bank Passbook",40,18);
-
-pdf.setTextColor(0,0,0);
-pdf.setFontSize(12);
-
-pdf.text("Customer Name: Abdur Salam",20,50);
-pdf.text("Account Number: 6000818381",20,60);
-pdf.text("Branch: Main Branch",20,70);
-pdf.text("IFSC Code: ICIC0001234",20,80);
-pdf.text("Address: Duliagaon, India",20,90);
-
-pdf.save("passbook.pdf");
+pdf.save("ICICI_Passbook.pdf")
 
 }
 
