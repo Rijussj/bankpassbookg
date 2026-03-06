@@ -6,7 +6,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-
 body{
 font-family:Arial;
 background:#f2f2f2;
@@ -38,7 +37,6 @@ width:95%;
 font-size:16px;
 cursor:pointer;
 }
-
 </style>
 </head>
 
@@ -49,20 +47,61 @@ cursor:pointer;
 <h2>ICICI Passbook Generator</h2>
 
 <input id="name" placeholder="Customer Name">
-
 <input id="account" placeholder="Account Number">
-
 <input id="branch" placeholder="Branch">
-
 <input id="ifsc" placeholder="IFSC Code">
-
 <input id="address" placeholder="Address">
 
-<button onclick="generatePDF()">Download Passbook</button>
+<button id="downloadBtn">Download Passbook</button>
 
 </div>
 
-<script src="script.js"></script>
+<script>
+
+document.getElementById("downloadBtn").addEventListener("click", generatePDF);
+
+function generatePDF(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+let name=document.getElementById("name").value;
+let account=document.getElementById("account").value;
+let branch=document.getElementById("branch").value;
+let ifsc=document.getElementById("ifsc").value;
+let address=document.getElementById("address").value;
+
+/* ICICI header */
+
+doc.setFillColor(243,123,32);
+doc.rect(0,0,210,25,"F");
+
+/* title */
+
+doc.setTextColor(255,255,255);
+doc.setFontSize(18);
+doc.text("ICICI Bank Passbook",105,15,null,null,"center");
+
+/* reset text */
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(12);
+
+/* details */
+
+doc.text("Customer Name : "+name,20,50);
+doc.text("Account Number : "+account,20,60);
+doc.text("Branch : "+branch,20,70);
+doc.text("IFSC Code : "+ifsc,20,80);
+doc.text("Address : "+address,20,90);
+
+/* download */
+
+doc.save("ICICI_Passbook.pdf");
+
+}
+
+</script>
 
 </body>
 </html>
