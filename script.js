@@ -10,27 +10,20 @@ var balance = document.getElementById("balance").value;
 
 const doc = new jsPDF();
 
+/* LOGO BASE64 */
+const logo="data:image/png;base64,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";
+
+doc.addImage(logo,"PNG",20,10,30,30);
+
 doc.setFontSize(18);
-doc.text("BANK PASSBOOK", 70, 20);
+doc.text("BANK PASSBOOK",80,25);
 
 doc.setFontSize(12);
-
-doc.text("Name: " + name, 20, 40);
-doc.text("Account No: " + acc, 20, 50);
-doc.text("IFSC: " + ifsc, 20, 60);
-doc.text("Branch: " + branch, 20, 70);
-
-doc.text("-------------------------------------------------", 20, 85);
-
-doc.text("Date", 20, 100);
-doc.text("Description", 50, 100);
-doc.text("Debit", 120, 100);
-doc.text("Credit", 140, 100);
-doc.text("Balance", 170, 100);
-
-doc.text("01/03/2026", 20, 110);
-doc.text("Opening Balance", 50, 110);
-doc.text(balance, 170, 110);
+doc.text("Name: "+name,20,60);
+doc.text("Account No: "+acc,20,70);
+doc.text("IFSC: "+ifsc,20,80);
+doc.text("Branch: "+branch,20,90);
+doc.text("Opening Balance: "+balance,20,100);
 
 doc.save("passbook.pdf");
 
