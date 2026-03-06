@@ -1,123 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>ICICI Passbook</title>
 
-<title>Passbook</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 
 body{
-font-family:Arial;
-background:#f2f2f2;
+font-family: Arial;
+background:#f5f5f5;
 text-align:center;
-}
-
-.box{
-background:white;
-width:380px;
-margin:auto;
-margin-top:40px;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-}
-
-input{
-width:90%;
-padding:8px;
-margin:6px;
-}
-
-button{
-background:#f37b20;
-color:white;
-border:none;
-padding:10px;
-width:95%;
-font-size:16px;
-cursor:pointer;
 }
 
 #passbook{
-width:500px;
+
+width:800px;
 background:white;
 margin:auto;
-margin-top:30px;
 padding:20px;
-border:1px solid #ddd;
+border:1px solid #ccc;
 }
 
-.header{
-background:#f37b20;
+/* ICICI Top Bar */
+
+.topbar{
+background:#a01919;
+color:white;
+padding:15px;
+display:flex;
+align-items:center;
+}
+
+.logo{
+width:60px;
+margin-right:10px;
+}
+
+.bankname{
+font-size:24px;
+font-weight:bold;
+}
+
+/* Customer Info */
+
+.info{
+text-align:left;
+margin-top:20px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table,th,td{
+border:1px solid #ccc;
+}
+
+th{
+background:#f2f2f2;
 padding:10px;
-text-align:center;
 }
 
-.header img{
-height:50px;
+td{
+padding:8px;
+}
+
+button{
+margin-top:20px;
+padding:12px 25px;
+font-size:18px;
+background:#a01919;
+color:white;
+border:none;
+cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="box">
+<div id="passbook">
 
-<h2>Passbook Generator</h2>
+<div class="topbar">
 
-<input id="name" placeholder="Customer Name"><br>
-<input id="account" placeholder="Account Number"><br>
-<input id="branch" placeholder="Branch"><br>
-<input id="ifsc" placeholder="IFSC Code"><br>
-<input id="address" placeholder="Address"><br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/12/ICICI_Bank_Logo.svg" class="logo">
 
-<button onclick="generate()">Preview Passbook</button>
+<div class="bankname">ICICI Bank Passbook</div>
+
+</div>
+
+<div class="info">
+
+<p><b>Customer Name:</b> Abdul Salam</p>
+<p><b>Account Number:</b> 123456789012</p>
+<p><b>Branch:</b> Mumbai</p>
+<p><b>IFSC Code:</b> ICIC0001234</p>
+<p><b>Address:</b> India</p>
+
+</div>
+
+<table>
+
+<tr>
+<th>Date</th>
+<th>Description</th>
+<th>Debit</th>
+<th>Credit</th>
+<th>Balance</th>
+</tr>
+
+<tr>
+<td>02/04/2026</td>
+<td>ATM Withdrawal</td>
+<td>500</td>
+<td>-</td>
+<td>4500</td>
+</tr>
+
+<tr>
+<td>05/04/2026</td>
+<td>Salary Credit</td>
+<td>-</td>
+<td>10000</td>
+<td>14500</td>
+</tr>
+
+</table>
+
+</div>
 
 <button onclick="downloadPDF()">Download Passbook</button>
 
-</div>
-
-<div id="passbook">
-
-<div class="header">
-
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABF1BMVEX///8AW3WwKjAAV3IAU2/5nScAVnHX5ekATWoAUW0ATGpDgJQAXHYAZH7q8vR0laP0+foqb4avJSytIzDi7O/5mx8ASGf5lgCtGCCtHiXtiylolKSsIDC90dfK2t8ARWXfsbP89/erAA747O3NeG3Ph4qlv8hOhpiCprOVsr3wkSj6tGK0w8uvx89UhJb927c7dInsy8vhrqnaoqX14t7AVFGrDBi7Qj7w2dnLd3TCXVnPgX2/XGDqw7i1NTfBZWjfmn3/8NvXdD7SjpD/58bcdSrshhG2MCv/9en6pjzHUCaoAAD9s1bcnpX8y5Tz077YbSrkkFe5MiDfbwC3Q0j8z5/DTS68Py/NXS24LBDdfD37um4AOFy9wowhAAAIMUlEQVR4nO2Za3fbxhGGCeJOAhRAgTdRgG4VQcqiTFmJKtWtXSVWLCWp66a+pG3+/+/ozOwuSMpxRZ/DHPbkvM8nYDkA5t2Z2Z2VajU">
-
-</div>
-
-<p id="pname"></p>
-<p id="paccount"></p>
-<p id="pbranch"></p>
-<p id="pifsc"></p>
-<p id="paddress"></p>
-
-</div>
-
 <script>
-
-function generate(){
-
-document.getElementById("pname").innerHTML="Customer Name: "+document.getElementById("name").value;
-
-document.getElementById("paccount").innerHTML="Account Number: "+document.getElementById("account").value;
-
-document.getElementById("pbranch").innerHTML="Branch: "+document.getElementById("branch").value;
-
-document.getElementById("pifsc").innerHTML="IFSC Code: "+document.getElementById("ifsc").value;
-
-document.getElementById("paddress").innerHTML="Address: "+document.getElementById("address").value;
-
-}
 
 function downloadPDF(){
 
-var element = document.getElementById("passbook");
+const { jsPDF } = window.jspdf;
 
-html2pdf().from(element).save("passbook.pdf");
+let passbook = document.getElementById("passbook");
+
+html2canvas(passbook).then(canvas => {
+
+let imgData = canvas.toDataURL("image/png");
+
+let pdf = new jsPDF('p','mm','a4');
+
+let width = 190;
+
+let height = canvas.height * width / canvas.width;
+
+pdf.addImage(imgData,'PNG',10,10,width,height);
+
+pdf.save("ICICI_Passbook.pdf");
+
+});
 
 }
 
