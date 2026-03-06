@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>ICICI Passbook Generator</title>
-
-<link rel="stylesheet" href="style.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f2f2f2;
+}
+
+input{
+width:260px;
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:10px 20px;
+background:#a01919;
+color:white;
+border:none;
+cursor:pointer;
+margin:10px;
+}
+
+#passbook{
+
+width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border:1px solid #ccc;
+
+}
+
+.topbar{
+
+background:#a01919;
+color:white;
+padding:15px;
+display:flex;
+align-items:center;
+
+}
+
+.logo{
+
+width:60px;
+margin-right:10px;
+
+}
+
+.info{
+
+text-align:left;
+margin-top:20px;
+
+}
+
+</style>
 
 </head>
 
@@ -14,25 +72,22 @@
 
 <h2>ICICI Passbook Generator</h2>
 
-<div class="form">
-
-<input type="text" id="name" placeholder="Customer Name"><br>
-<input type="text" id="acc" placeholder="Account Number"><br>
-<input type="text" id="branch" placeholder="Branch"><br>
-<input type="text" id="ifsc" placeholder="IFSC Code"><br>
-<input type="text" id="address" placeholder="Address"><br>
+<input id="name" placeholder="Customer Name"><br>
+<input id="acc" placeholder="Account Number"><br>
+<input id="branch" placeholder="Branch"><br>
+<input id="ifsc" placeholder="IFSC Code"><br>
+<input id="address" placeholder="Address"><br>
 
 <button onclick="generatePassbook()">Generate Passbook</button>
-
-</div>
-
-<br>
 
 <div id="passbook">
 
 <div class="topbar">
-<img src="logo.png" class="logo">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/12/ICICI_Bank_Logo.svg" class="logo">
+
 <h2>ICICI Bank</h2>
+
 </div>
 
 <div class="info">
@@ -47,11 +102,42 @@
 
 </div>
 
-<br>
-
 <button onclick="downloadPDF()">Download Passbook</button>
 
-<script src="script.js"></script>
+<script>
+
+function generatePassbook(){
+
+document.getElementById("pname").innerText=document.getElementById("name").value;
+document.getElementById("pacc").innerText=document.getElementById("acc").value;
+document.getElementById("pbranch").innerText=document.getElementById("branch").value;
+document.getElementById("pifsc").innerText=document.getElementById("ifsc").value;
+document.getElementById("paddress").innerText=document.getElementById("address").value;
+
+}
+
+function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+
+html2canvas(document.getElementById("passbook")).then(canvas => {
+
+let img=canvas.toDataURL("image/png");
+
+let pdf=new jsPDF();
+
+let width=190;
+let height=canvas.height*width/canvas.width;
+
+pdf.addImage(img,'PNG',10,10,width,height);
+
+pdf.save("ICICI_Passbook.pdf");
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
