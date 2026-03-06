@@ -1,32 +1,46 @@
-function createPassbook(){
+async function generatePDF(){
 
 const { jsPDF } = window.jspdf;
-
-var name = document.getElementById("name").value;
-var acc = document.getElementById("account").value;
-var ifsc = document.getElementById("ifsc").value;
-var branch = document.getElementById("branch").value;
-var balance = document.getElementById("balance").value;
-
 const doc = new jsPDF();
 
-/* LOGO LOAD */
-var img = document.getElementById("logo");
-doc.addImage(img,"PNG",20,10,40,20);
+let name=document.getElementById("name").value;
+let acc=document.getElementById("acc").value;
+let branch=document.getElementById("branch").value;
+let ifsc=document.getElementById("ifsc").value;
+let balance=document.getElementById("balance").value;
 
-/* TITLE */
-doc.setFontSize(18);
-doc.text("BANK PASSBOOK",80,25);
+let img = new Image();
+img.src="logo.png";
 
-/* DETAILS */
-doc.setFontSize(12);
-doc.text("Name: "+name,20,60);
-doc.text("Account No: "+acc,20,70);
-doc.text("IFSC: "+ifsc,20,80);
-doc.text("Branch: "+branch,20,90);
-doc.text("Opening Balance: "+balance,20,100);
+img.onload=function(){
 
-/* DOWNLOAD */
+doc.addImage(img,'PNG',15,10,40,15);
+
+doc.setFontSize(16);
+doc.text("ICICI BANK PASSBOOK",105,20,null,null,"center");
+
+doc.setFontSize(11);
+
+doc.text("Name : "+name,15,40);
+doc.text("Account No : "+acc,15,48);
+doc.text("Branch : "+branch,15,56);
+doc.text("IFSC : "+ifsc,15,64);
+doc.text("Balance : ₹ "+balance,15,72);
+
+doc.line(10,80,200,80);
+
+doc.text("Date",15,90);
+doc.text("Description",50,90);
+doc.text("Debit",140,90);
+doc.text("Credit",165,90);
+
+doc.line(10,95,200,95);
+
+doc.text("01/01/2026","15","Opening Balance");
+doc.text("₹ "+balance,"165","100");
+
 doc.save("passbook.pdf");
+
+}
 
 }
