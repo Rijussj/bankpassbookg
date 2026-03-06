@@ -58,7 +58,50 @@ cursor:pointer;
 
 </div>
 
-<script src="script.js"></script>
+<script>
+
+function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+/* HEADER COLOR */
+
+doc.setFillColor(243,123,32);
+doc.rect(0,0,210,30,"F");
+
+/* LOGO */
+
+var logo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABF1BMVEX///8AW3WwKjAAV3IAU2/5nScAVnHX5ekATWoAUW0ATGpDgJQAXHYAZH7q8vR0laP0+foqb4avJSytIzDi7O/5mx8ASGf5lgCtGCCtHiXtiylolKSsIDC90dfK2t8ARWXfsbP89/erAA747O3NeG3Ph4qlv8hOhpiCprOVsr3wkSj6tGK0w8uvx89UhJb927c7dInsy8vhrqnaoqX14t7AVFGrDBi7Qj7w2dnLd3TCXVnPgX2/XGDqw7i1NTfBZWjfmn3/8NvXdD7SjpD/58bcdSrshhG2MCv/9en6pjzHUCaoAAD9s1bcnpX8y5Tz077YbSrkkFe5MiDfbwC3Q0j8z5/DTS68Py/NXS24LBDdfD37um4AOFy9wowhAAAIMUlEQVR4nO2Za3fbxhGGCeJOAhRAgTdRgG4VQcqiTFmJKtWtXSVWLCWp66a+pG3+/+/ozOwuSMpxRZ/DHPbkvM8nYDkA5t2Z2Z2VajU";
+
+/* CENTER LOGO */
+
+doc.addImage(logo,"PNG",85,5,40,20);
+
+/* TITLE */
+
+doc.setTextColor(255,255,255);
+doc.setFontSize(18);
+doc.text("PASSBOOK",105,25,null,null,"center");
+
+/* DETAILS */
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(12);
+
+doc.text("Customer Name: "+document.getElementById("name").value,20,60);
+doc.text("Account Number: "+document.getElementById("account").value,20,70);
+doc.text("Branch: "+document.getElementById("branch").value,20,80);
+doc.text("IFSC Code: "+document.getElementById("ifsc").value,20,90);
+doc.text("Address: "+document.getElementById("address").value,20,100);
+
+/* DOWNLOAD */
+
+doc.save("Passbook.pdf");
+
+}
+
+</script>
 
 </body>
 </html>
