@@ -79,7 +79,8 @@ margin-top:20px;
 
 <div class="topbar">
 
-<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/1/12/ICICI_Bank_Logo.svg">
+<img class="logo" crossorigin="anonymous"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/512px-ICICI_Bank_Logo.svg.png">
 
 <h2>ICICI Bank Passbook</h2>
 
@@ -124,7 +125,8 @@ function downloadPDF(){
 const { jsPDF } = window.jspdf;
 
 html2canvas(document.getElementById("passbook"),{
-scale:2
+scale:2,
+useCORS:true
 }).then(canvas => {
 
 let img=canvas.toDataURL("image/png");
