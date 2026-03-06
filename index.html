@@ -12,8 +12,8 @@
 
 body{
 font-family:Arial;
-text-align:center;
 background:#f2f2f2;
+text-align:center;
 }
 
 input{
@@ -24,7 +24,7 @@ margin:5px;
 
 button{
 padding:10px 20px;
-background:#AE275F;
+background:#a61d55;
 color:white;
 border:none;
 cursor:pointer;
@@ -35,12 +35,12 @@ margin:10px;
 width:700px;
 margin:auto;
 background:white;
-padding:20px;
 border:1px solid #ccc;
+padding:20px;
 }
 
 .topbar{
-background:#AE275F;
+background:#a61d55;
 color:white;
 padding:15px;
 display:flex;
@@ -48,13 +48,14 @@ align-items:center;
 }
 
 .logo{
-width:120px;
-margin-right:10px;
+width:110px;
+margin-right:15px;
 }
 
 .info{
 text-align:left;
 margin-top:20px;
+font-size:18px;
 }
 
 </style>
@@ -79,8 +80,8 @@ margin-top:20px;
 
 <div class="topbar">
 
-<img class="logo" crossorigin="anonymous"
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/512px-ICICI_Bank_Logo.svg.png">
+<img class="logo" id="banklogo"
+src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABF1BMVEX///8AW3WwKjAAV3IAU2/5nScAVnHX5ekATWoAUW0ATGpDgJQAXHYAZH7q8vR0laP0+foqb4avJSytIzDi7O/5mx8ASGf5lgCtGCCtHiXtiylolKSsIDC90dfK2t8ARWXfsbP89/erAA747O3NeG3Ph4qlv8hOhpiCprOVsr3wkSj6tGK0w8uvx89UhJb927c7dInsy8vhrqnaoqX14t7AVFGrDBi7Qj7w2dnLd3TCXVnPgX2/XGDqw7i1NTfBZWjfmn3/8NvXdD7SjpD/58bcdSrshhG2MCv/9en6pjzHUCaoAAD9s1bcnpX8y5Tz077YbSrkkFe5MiDfbwC3Q0j8z5/DTS68Py/NXS24LBDdfD37um4AOFy9wowhAAAIMUlFTkSuQmCC">
 
 <h2>ICICI Bank Passbook</h2>
 
@@ -124,7 +125,7 @@ function downloadPDF(){
 
 const { jsPDF } = window.jspdf;
 
-html2canvas(document.getElementById("passbook"),{
+html2canvas(document.querySelector("#passbook"),{
 scale:2,
 useCORS:true
 }).then(canvas => {
@@ -136,7 +137,7 @@ let pdf=new jsPDF("p","mm","a4");
 let width=190;
 let height=canvas.height*width/canvas.width;
 
-pdf.addImage(img,'PNG',10,10,width,height);
+pdf.addImage(img,"PNG",10,10,width,height);
 
 pdf.save("ICICI_Passbook.pdf");
 
