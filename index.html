@@ -1,169 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ICICI Passbook</title>
+<title>ICICI Passbook Generator</title>
+
+<link rel="stylesheet" href="style.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<style>
-
-body{
-font-family: Arial;
-background:#f5f5f5;
-text-align:center;
-}
-
-#passbook{
-
-width:800px;
-background:white;
-margin:auto;
-padding:20px;
-border:1px solid #ccc;
-}
-
-/* ICICI Top Bar */
-
-.topbar{
-background:#a01919;
-color:white;
-padding:15px;
-display:flex;
-align-items:center;
-}
-
-.logo{
-width:60px;
-margin-right:10px;
-}
-
-.bankname{
-font-size:24px;
-font-weight:bold;
-}
-
-/* Customer Info */
-
-.info{
-text-align:left;
-margin-top:20px;
-font-size:16px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-
-table,th,td{
-border:1px solid #ccc;
-}
-
-th{
-background:#f2f2f2;
-padding:10px;
-}
-
-td{
-padding:8px;
-}
-
-button{
-margin-top:20px;
-padding:12px 25px;
-font-size:18px;
-background:#a01919;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-</style>
 </head>
 
 <body>
 
+<h2>ICICI Passbook Generator</h2>
+
+<div class="form">
+
+<input type="text" id="name" placeholder="Customer Name"><br>
+<input type="text" id="acc" placeholder="Account Number"><br>
+<input type="text" id="branch" placeholder="Branch"><br>
+<input type="text" id="ifsc" placeholder="IFSC Code"><br>
+<input type="text" id="address" placeholder="Address"><br>
+
+<button onclick="generatePassbook()">Generate Passbook</button>
+
+</div>
+
+<br>
+
 <div id="passbook">
 
 <div class="topbar">
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/12/ICICI_Bank_Logo.svg" class="logo">
-
-<div class="bankname">ICICI Bank Passbook</div>
-
+<img src="logo.png" class="logo">
+<h2>ICICI Bank</h2>
 </div>
 
 <div class="info">
 
-<p><b>Customer Name:</b> Abdul Salam</p>
-<p><b>Account Number:</b> 123456789012</p>
-<p><b>Branch:</b> Mumbai</p>
-<p><b>IFSC Code:</b> ICIC0001234</p>
-<p><b>Address:</b> India</p>
+<p><b>Customer Name:</b> <span id="pname"></span></p>
+<p><b>Account Number:</b> <span id="pacc"></span></p>
+<p><b>Branch:</b> <span id="pbranch"></span></p>
+<p><b>IFSC Code:</b> <span id="pifsc"></span></p>
+<p><b>Address:</b> <span id="paddress"></span></p>
 
 </div>
 
-<table>
-
-<tr>
-<th>Date</th>
-<th>Description</th>
-<th>Debit</th>
-<th>Credit</th>
-<th>Balance</th>
-</tr>
-
-<tr>
-<td>02/04/2026</td>
-<td>ATM Withdrawal</td>
-<td>500</td>
-<td>-</td>
-<td>4500</td>
-</tr>
-
-<tr>
-<td>05/04/2026</td>
-<td>Salary Credit</td>
-<td>-</td>
-<td>10000</td>
-<td>14500</td>
-</tr>
-
-</table>
-
 </div>
+
+<br>
 
 <button onclick="downloadPDF()">Download Passbook</button>
 
-<script>
-
-function downloadPDF(){
-
-const { jsPDF } = window.jspdf;
-
-let passbook = document.getElementById("passbook");
-
-html2canvas(passbook).then(canvas => {
-
-let imgData = canvas.toDataURL("image/png");
-
-let pdf = new jsPDF('p','mm','a4');
-
-let width = 190;
-
-let height = canvas.height * width / canvas.width;
-
-pdf.addImage(imgData,'PNG',10,10,width,height);
-
-pdf.save("ICICI_Passbook.pdf");
-
-});
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
