@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Passbook Generator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -41,7 +40,6 @@ cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -60,65 +58,7 @@ cursor:pointer;
 
 </div>
 
-<script>
-
-function downloadPDF(){
-
-const { jsPDF } = window.jspdf;
-
-var doc = new jsPDF();
-
-/* HEADER */
-
-doc.setFillColor(243,123,32);
-doc.rect(0,0,210,35,"F");
-
-doc.setTextColor(255,255,255);
-doc.setFontSize(20);
-doc.text("Bank Passbook",105,20,null,null,"center");
-
-/* WHITE BOX */
-
-doc.setDrawColor(200);
-doc.rect(10,40,190,90);
-
-/* TITLE */
-
-doc.setTextColor(0,0,0);
-doc.setFontSize(16);
-doc.text("PASSBOOK DETAILS",105,50,null,null,"center");
-
-/* CUSTOMER DETAILS */
-
-doc.setFontSize(12);
-
-doc.text("Customer Name :",20,65);
-doc.text(document.getElementById("name").value,90,65);
-
-doc.text("Account Number :",20,75);
-doc.text(document.getElementById("account").value,90,75);
-
-doc.text("Branch :",20,85);
-doc.text(document.getElementById("branch").value,90,85);
-
-doc.text("IFSC Code :",20,95);
-doc.text(document.getElementById("ifsc").value,90,95);
-
-doc.text("Address :",20,105);
-doc.text(document.getElementById("address").value,90,105);
-
-/* FOOTER */
-
-doc.setFontSize(10);
-doc.text("This is a system generated passbook.",105,130,null,null,"center");
-
-/* DOWNLOAD */
-
-doc.save("Passbook.pdf");
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
